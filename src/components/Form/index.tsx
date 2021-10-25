@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { RadioGroup } from "@headlessui/react";
 import { api } from "../../services/api";
+import { cpfMark, dateMask } from "../../utils/mask";
 
 type Candidate = {
   id: string;
@@ -58,8 +59,8 @@ export function Form() {
       <form onSubmit={handleVote} className="flex flex-col items-center">
         <div>
           <input
-            className="w-48 h-8 mb-20 mr-5 placeholder-gray-300 font-opens text-sm font-bold border-b-2 focus:border-blue-500 focus:outline-none"
-            onChange={(event) => setCpf(event.target.value)}
+            className="w-48 h-8 mb-14 mr-5 placeholder-gray-300 font-opens text-sm font-bold border-b-2 focus:border-blue-500 focus:outline-none"
+            onChange={(event) => setCpf(cpfMark(event.target.value))}
             value={cpf}
             type="text"
             name="voterData"
@@ -67,8 +68,8 @@ export function Form() {
             placeholder="CPF"
           />
           <input
-            className="w-48 h-8 mb-20 placeholder-gray-300 font-opens text-sm font-bold border-b-2 focus:border-blue-500 focus:outline-none"
-            onChange={(event) => setBirthday(event.target.value)}
+            className="w-48 h-8 mb-14 placeholder-gray-300 font-opens text-sm font-bold border-b-2 focus:border-blue-500 focus:outline-none"
+            onChange={(event) => setBirthday(dateMask(event.target.value))}
             value={birthday}
             type="text"
             name="voterData"
@@ -76,7 +77,7 @@ export function Form() {
             placeholder="DATA DE NASCIMENTO"
           />
           {statusCode === 401 && (
-            <p className="mt-5 font-open font-bold text-sm text-red-500">
+            <p className="mb-5 font-open font-bold text-sm text-red-500">
               ATENÇÃO: O colaborador atrelado à este número de CPF já votou!
             </p>
           )}
