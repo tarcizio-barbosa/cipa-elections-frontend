@@ -75,6 +75,11 @@ export function Form() {
             id="birthDay"
             placeholder="DATA DE NASCIMENTO"
           />
+          {statusCode === 401 && (
+            <p className="mt-5 font-open font-bold text-sm text-red-500">
+              ATENÇÃO: O colaborador atrelado à este número de CPF já votou!
+            </p>
+          )}
         </div>
 
         <RadioGroup
@@ -140,11 +145,6 @@ export function Form() {
         >
           ENVIAR
         </button>
-        {statusCode === 401 && (
-          <p className="mt-5 font-open font-bold text-sm text-red-500">
-            ATENÇÃO: O colaborador atrelado à este número de CPF já votou!
-          </p>
-        )}
       </form>
     </div>
   );
