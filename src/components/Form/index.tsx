@@ -36,9 +36,10 @@ export function Form() {
       })
       .then((response) => {
         setStatusCode(response.status);
-      }).catch(() => {
-				setStatusCode(401)
-			})
+      })
+      .catch(() => {
+        setStatusCode(401);
+      });
 
     setCpf("");
     setBirthday("");
@@ -52,37 +53,43 @@ export function Form() {
   }, []);
 
   return (
-    <div className="h-96 pt-24 flex flex-col items-center">
-      <h1 className="mb-20 font-opens text-3xl">Preencha os dados abaixo</h1>
-      <form onSubmit={handleVote}>
-        <input
-          className="w-48 h-8 mb-20 mr-5 placeholder-gray-300 font-opens text-sm font-bold border-b-2 focus:border-blue-500 focus:outline-none"
-          onChange={(event) => setCpf(event.target.value)}
-          value={cpf}
-          type="text"
-          name="voterData"
-          id="cpfNumber"
-          placeholder="CPF"
-        />
-        <input
-          className="w-48 h-8 mb-20 placeholder-gray-300 font-opens text-sm font-bold border-b-2 focus:border-blue-500 focus:outline-none"
-          onChange={(event) => setBirthday(event.target.value)}
-          value={birthday}
-          type="text"
-          name="voterData"
-          id="birthDay"
-          placeholder="DATA DE NASCIMENTO"
-        />
+    <div className="h-96 mt-10 flex flex-col items-center">
+      <h1 className="mb-14 font-opens text-3xl">Preencha os dados abaixo</h1>
+      <form onSubmit={handleVote} className="flex flex-col items-center">
+        <div>
+          <input
+            className="w-48 h-8 mb-20 mr-5 placeholder-gray-300 font-opens text-sm font-bold border-b-2 focus:border-blue-500 focus:outline-none"
+            onChange={(event) => setCpf(event.target.value)}
+            value={cpf}
+            type="text"
+            name="voterData"
+            id="cpfNumber"
+            placeholder="CPF"
+          />
+          <input
+            className="w-48 h-8 mb-20 placeholder-gray-300 font-opens text-sm font-bold border-b-2 focus:border-blue-500 focus:outline-none"
+            onChange={(event) => setBirthday(event.target.value)}
+            value={birthday}
+            type="text"
+            name="voterData"
+            id="birthDay"
+            placeholder="DATA DE NASCIMENTO"
+          />
+        </div>
 
-        <RadioGroup value={candidate} onChange={setCandidate} className="flex">
+        <RadioGroup
+          value={candidate}
+          onChange={setCandidate}
+          className="flex flex-wrap"
+        >
           {candidates.map((element) => (
             <RadioGroup.Option key={element.id} value={element.id}>
               {({ checked }) => (
                 <div
                   className={
                     checked
-                      ? "w-48 h-48 mr-8 flex flex-col items-center border-2 rounded border-green-500"
-                      : "w-48 h-48 mr-8 flex flex-col items-center border-2 rounded border-gray-300"
+                      ? "w-40 h-40 mr-8 mb-8 flex flex-col items-center border-2 rounded border-green-500"
+                      : "w-40 h-40 mr-8 mb-8 flex flex-col items-center border-2 rounded border-gray-300"
                   }
                 >
                   <div className="mt-3">
@@ -114,7 +121,9 @@ export function Form() {
                         : "font-opens text-lg text-gray-300"
                     }
                   >
-                    {`${element.candidateFirstName} ${element.candidateLastName}`}
+                    {`${element.candidateFirstName} ${
+                      element.candidateLastName ? element.candidateLastName : ""
+                    }`}
                   </p>
                   <strong className={checked ? "" : "text-gray-300"}>
                     {element.candidateTeam}
@@ -127,15 +136,15 @@ export function Form() {
 
         <button
           type="submit"
-          className="w-36 h-12 mt-24 bg-green-700 font-opens font-bold text-sm text-white hover:bg-green-500"
+          className="w-36 h-12 mt-4 bg-green-700 font-opens font-bold text-sm text-white hover:bg-green-500"
         >
           ENVIAR
         </button>
-				{statusCode === 401 &&
-					<p className='mt-5 font-open font-bold text-sm text-red-500'>
-						ATENÇÃO: O colaborador atrelado à este número de CPF já votou!
-					</p>
-				}
+        {statusCode === 401 && (
+          <p className="mt-5 font-open font-bold text-sm text-red-500">
+            ATENÇÃO: O colaborador atrelado à este número de CPF já votou!
+          </p>
+        )}
       </form>
     </div>
   );
