@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Dialog, RadioGroup } from "@headlessui/react";
-import { api } from "../services/api";
+import { RadioGroup } from "@headlessui/react";
+import { api } from "../../services/api";
 
 type Candidate = {
   id: string;
@@ -24,8 +24,6 @@ export function Form() {
   const [candidate, setCandidate] = useState("");
   const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [statusCode, setStatusCode] = useState(0);
-
-  const completeButtonRef = useRef(null);
 
   async function handleVote(event: FormEvent) {
     event.preventDefault();
