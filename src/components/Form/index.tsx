@@ -25,6 +25,7 @@ export function Form() {
   const [candidate, setCandidate] = useState("");
   const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [statusCode, setStatusCode] = useState(0);
+  const [sucessMessage, setSucessMessage] = useState("");
 
   async function handleVote(event: FormEvent) {
     event.preventDefault();
@@ -37,6 +38,7 @@ export function Form() {
       })
       .then((response) => {
         setStatusCode(response.status);
+        setSucessMessage("Seu voto com registrado com sucesso!");
       })
       .catch(() => {
         setStatusCode(401);
@@ -45,6 +47,7 @@ export function Form() {
     setCpf("");
     setBirthday("");
     setCandidate("");
+    // setSucessMessage("");
   }
 
   useEffect(() => {
@@ -66,6 +69,7 @@ export function Form() {
             name="voterData"
             id="cpfNumber"
             placeholder="CPF"
+            onFocus={(event) => setSucessMessage("")}
           />
           <input
             className="w-48 h-8 mb-14 placeholder-gray-300 font-opens text-sm font-bold border-b-2 focus:border-blue-500 focus:outline-none"
@@ -79,6 +83,11 @@ export function Form() {
           {statusCode === 401 && (
             <p className="mb-5 font-open font-bold text-sm text-red-500">
               ATENÇÃO: O colaborador atrelado à este número de CPF já votou!
+            </p>
+          )}
+          {statusCode === 201 && (
+            <p className="mb-5 font-open font-bold text-sm text-green-700">
+              {sucessMessage}
             </p>
           )}
         </div>
