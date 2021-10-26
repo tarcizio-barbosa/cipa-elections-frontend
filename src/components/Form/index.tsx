@@ -149,6 +149,12 @@ export function Form() {
           ))}
         </RadioGroup>
 
+        {candidate === "" && (
+          <p className="font-open font-bold text-sm text-red-500">
+            Selecione um Candidato
+          </p>
+        )}
+
         <button
           type="submit"
           className="w-36 h-12 mt-4 bg-green-700 font-opens font-bold text-sm text-white hover:bg-green-500"
