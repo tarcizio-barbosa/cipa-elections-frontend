@@ -38,7 +38,7 @@ export function Form() {
       })
       .then((response) => {
         setStatusCode(response.status);
-        setSucessMessage("Seu voto com registrado com sucesso!");
+        setSucessMessage("Seu voto foi registrado com sucesso!");
       })
       .catch(() => {
         setStatusCode(401);
